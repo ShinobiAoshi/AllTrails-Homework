@@ -47,6 +47,8 @@ dependencies {
     implementation(Libraries.Dependencies.AndroidX.CORE)
     implementation(Libraries.Dependencies.Google.MATERIAL)
     implementation(Libraries.Dependencies.AndroidX.CONSTRAINT_LAYOUT)
+    implementation(Libraries.Dependencies.AndroidX.NAVIGATION_FRAGMENT)
+    implementation(Libraries.Dependencies.AndroidX.NAVIGATION_UI)
     testImplementation(Testing.Dependencies.JUNIT)
     androidTestImplementation(Testing.Dependencies.JUNIT_EXTENSION)
     androidTestImplementation(Testing.Dependencies.Espresso.CORE)

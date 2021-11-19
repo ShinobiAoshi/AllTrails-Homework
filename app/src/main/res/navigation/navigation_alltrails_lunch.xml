@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_alltrails_lunch"
+    app:startDestination="@id/fragment_nearby_restaurant_list_destination">
+    <fragment
+        android:id="@+id/fragment_nearby_restaurant_list_destination"
+        android:name="com.alltrails.lunch.nearbyrestaurants.presentation.NearbyRestaurantListFragment"
+        android:label="@string/nearby_restaurant_list_title"
+        tools:layout="@layout/fragment_nearby_restaurant_list" />
+    <fragment
+        android:id="@+id/fragment_nearby_restaurant_map_destination"
+        android:name="com.alltrails.lunch.nearbyrestaurants.presentation.NearbyRestaurantMapFragment"
+        android:label="@string/nearby_restaurant_list_title"
+        tools:layout="@layout/fragment_nearby_restaurant_list" />
+</navigation>
