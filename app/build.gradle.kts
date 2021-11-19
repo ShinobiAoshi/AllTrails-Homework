@@ -49,6 +49,8 @@ dependencies {
     implementation(Libraries.Dependencies.AndroidX.CONSTRAINT_LAYOUT)
     implementation(Libraries.Dependencies.AndroidX.NAVIGATION_FRAGMENT)
     implementation(Libraries.Dependencies.AndroidX.NAVIGATION_UI)
+    implementation(Libraries.Dependencies.AirBnB.MAVERICKS)
+    implementation(Libraries.Dependencies.AirBnB.MAVERICKS_NAVIGATION)
     testImplementation(Testing.Dependencies.JUNIT)
     androidTestImplementation(Testing.Dependencies.JUNIT_EXTENSION)
     androidTestImplementation(Testing.Dependencies.Espresso.CORE)
