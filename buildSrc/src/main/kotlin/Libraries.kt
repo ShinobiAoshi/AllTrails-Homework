@@ -2,7 +2,7 @@ object Libraries {
 
     object Versions {
 
-        const val KOTLIN = "1.5.31"
+        const val KOTLIN = "1.6.0"
 
         object AndroidX {
             const val APP_COMPAT = "1.3.1"
