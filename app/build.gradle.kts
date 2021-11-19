@@ -48,7 +48,12 @@ android {
 
 dependencies {
     implementation(Libraries.Dependencies.Google.HILT)
+    implementation(Libraries.Dependencies.RETROFIT)
+    implementation(Libraries.Dependencies.Moshi.MOSHI)
+    implementation(Libraries.Dependencies.Moshi.MOSHI_KOTLIN)
+    implementation(Libraries.Dependencies.Moshi.MOSHI_CONVERTER)
     kapt(Libraries.Dependencies.Google.HILT_COMPILER)
+    kapt(Libraries.Dependencies.Moshi.MOSHI_CODEGEN)
     implementation(Libraries.Dependencies.AndroidX.APP_COMPAT)
     implementation(Libraries.Dependencies.AndroidX.CORE)
     implementation(Libraries.Dependencies.Google.MATERIAL)
