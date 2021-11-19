@@ -3,14 +3,15 @@
     package="com.alltrails.lunch">
 
     <application
-        android:allowBackup="true"
+        android:name="com.alltrails.lunch.AllTrailsLunchApplication"
+        android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AllTrailsAtLunch">
         <activity
-            android:name=".common.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
