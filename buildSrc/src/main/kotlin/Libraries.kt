@@ -16,6 +16,7 @@ object Libraries {
         }
 
         object Google {
+            const val HILT = "2.38.1"
             const val MATERIAL = "1.4.0"
         }
     }
@@ -37,6 +38,8 @@ object Libraries {
         }
 
         object Google {
+            const val HILT = "com.google.dagger:hilt-android:${Versions.Google.HILT}"
+            const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.Google.HILT}"
             const val MATERIAL = "com.google.android.material:material:${Versions.Google.MATERIAL}"
         }
     }

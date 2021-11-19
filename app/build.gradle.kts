@@ -2,6 +2,7 @@ plugins {
     id(Plugins.Ids.ANDROID_APPLICATION)
     kotlin(Plugins.Ids.KOTLIN_ANDROID)
     kotlin(Plugins.Ids.KOTLIN_KAPT)
+    id(Plugins.Ids.HILT)
 }
 
 android {
@@ -30,6 +31,9 @@ android {
         viewBinding = true
     }
 
+    kapt {
+        correctErrorTypes = true
+    }
 
     buildTypes {
         getByName("release") {
@@ -43,6 +47,8 @@ android {
 }
 
 dependencies {
+    implementation(Libraries.Dependencies.Google.HILT)
+    kapt(Libraries.Dependencies.Google.HILT_COMPILER)
     implementation(Libraries.Dependencies.AndroidX.APP_COMPAT)
     implementation(Libraries.Dependencies.AndroidX.CORE)
     implementation(Libraries.Dependencies.Google.MATERIAL)
