@@ -2,4 +2,5 @@
     <string name="app_name">AllTrails at Lunch</string>
     <string name="nearby_restaurant_list_title">Nearby Restaurant List</string>
     <string name="nearby_restaurant_map_title">Nearby Restaurant Map</string>
+    <string name="error_invalid_request">An invalid request was made</string>
 </resources>

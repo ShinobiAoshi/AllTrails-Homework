@@ -2,7 +2,10 @@ object Libraries {
 
     object Versions {
 
-        const val KOTLIN = "1.6.0"
+        const val KOTLIN = "1.5.31"
+        const val MOSHI = "1.12.0"
+        const val RETROFIT = "2.9.0"
+        const val OK_HTTP = "4.9.2"
 
         object AirBnB {
             const val MAVERICKS = "2.4.0"
@@ -23,6 +26,8 @@ object Libraries {
 
     object Dependencies {
 
+        const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
+
         object AirBnB {
             const val MAVERICKS = "com.airbnb.android:mavericks:${Versions.AirBnB.MAVERICKS}"
             const val MAVERICKS_NAVIGATION = "com.airbnb.android:mavericks-navigation:${Versions.AirBnB.MAVERICKS}"
@@ -41,6 +46,18 @@ object Libraries {
             const val HILT = "com.google.dagger:hilt-android:${Versions.Google.HILT}"
             const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.Google.HILT}"
             const val MATERIAL = "com.google.android.material:material:${Versions.Google.MATERIAL}"
+        }
+
+        object OkHttp {
+            const val OK_HTTP = "com.squareup.okhttp3:okhttp:${Versions.OK_HTTP}"
+            const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${Versions.OK_HTTP}"
+        }
+
+        object Moshi {
+            const val MOSHI = "com.squareup.moshi:moshi:${Versions.MOSHI}"
+            const val MOSHI_KOTLIN = "com.squareup.moshi:moshi-kotlin:${Versions.MOSHI}"
+            const val MOSHI_CODEGEN = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.MOSHI}"
+            const val MOSHI_CONVERTER = "com.squareup.retrofit2:converter-moshi:${Versions.RETROFIT}"
         }
     }
 }
