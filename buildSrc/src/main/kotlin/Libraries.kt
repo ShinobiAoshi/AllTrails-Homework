@@ -32,6 +32,7 @@ object Libraries {
         object AirBnB {
             const val EPOXY = "com.airbnb.android:epoxy:${Versions.AirBnB.EPOXY}"
             const val EPOXY_PROCESSOR = "com.airbnb.android:epoxy-processor:${Versions.AirBnB.EPOXY}"
+            const val EPOXY_DATABINDING = "com.airbnb.android:epoxy-databinding:${Versions.AirBnB.EPOXY}"
             const val MAVERICKS = "com.airbnb.android:mavericks:${Versions.AirBnB.MAVERICKS}"
             const val MAVERICKS_NAVIGATION = "com.airbnb.android:mavericks-navigation:${Versions.AirBnB.MAVERICKS}"
         }

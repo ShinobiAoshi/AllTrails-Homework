@@ -9,6 +9,7 @@ import com.alltrails.lunch.R
 import com.alltrails.lunch.data.models.LatLng
 import com.alltrails.lunch.data.models.NearbySearchResponse
 import com.alltrails.lunch.databinding.FragmentNearbyRestaurantListBinding
+import com.alltrails.lunch.itemNearbyrestaurantListHeader
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.utils.viewBinding
 import com.google.android.material.snackbar.Snackbar
@@ -30,12 +31,16 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
     }
 
     override fun invalidate() = withState(viewModel) { state ->
-
+        binding.epoxyrecyclerviewNearbyList.withModels {
+            itemNearbyrestaurantListHeader {
+                id("header")
+            }
+        }
     }
 
     private fun handleNearbyPlacesResult(response: NetworkState<NearbySearchResponse>) {
         when (response) {
-            is NetworkState.Success -> TODO()
+            is NetworkState.Success -> { }
             is NetworkState.Error -> handleError(response.error)
             is NetworkState.HttpErrors.BadGateWay -> handleError(response.exception)
             is NetworkState.HttpErrors.InternalServerError -> handleError(response.exception)
@@ -43,7 +48,7 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
             is NetworkState.HttpErrors.ResourceForbidden -> handleError(response.exception)
             is NetworkState.HttpErrors.ResourceNotFound -> handleError(response.exception)
             is NetworkState.HttpErrors.ResourceRemoved -> handleError(response.exception)
-            NetworkState.InvalidData -> TODO()
+            NetworkState.InvalidData -> { }
             is NetworkState.NetworkException -> handleError(response.error)
         }
     }

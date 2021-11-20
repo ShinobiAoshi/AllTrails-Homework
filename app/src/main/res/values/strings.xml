@@ -3,4 +3,6 @@
     <string name="nearby_restaurant_list_title">Nearby Restaurant List</string>
     <string name="nearby_restaurant_map_title">Nearby Restaurant Map</string>
     <string name="error_invalid_request">An invalid request was made</string>
+    <string name="nearby_restaurant_search_hint">Search for a restaurant</string>
+    <string name="at_lunch_label">at Lunch</string>
 </resources>

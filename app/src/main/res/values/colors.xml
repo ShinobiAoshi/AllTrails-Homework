@@ -1,7 +1,9 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-    <color name="la_palma">#428a13</color>
-    <color name="camarone">#025c00</color>
-    <color name="cream_can">#f4d248</color>
-    <color name="buddha_gold">#bea106</color>
+    <color name="la_palma">#428A13</color>
+    <color name="camarone">#025C00</color>
+    <color name="cream_can">#F4D248</color>
+    <color name="buddha_gold">#BEA106</color>
+    <color name="concrete">#F2F2F2</color>
+    <color name="silver">#CCCCCC</color>
 </resources>
