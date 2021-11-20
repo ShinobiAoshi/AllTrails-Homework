@@ -2,7 +2,7 @@ package com.alltrails.lunch.data.repository
 
 import android.content.Context
 import com.alltrails.lunch.R
-import com.alltrails.lunch.data.models.LatLng
+import com.alltrails.lunch.data.models.LatLngLiteral
 import com.alltrails.lunch.data.models.NearbySearchResponse
 import com.alltrails.lunch.data.models.PlacesSearchStatus
 import com.alltrails.lunch.network.service.NearbySearchService
@@ -19,7 +19,8 @@ class NearbySearchRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val nearbySearchService: NearbySearchService
 ) {
-    fun searchNearby(location: LatLng): Flow<NetworkState<NearbySearchResponse>> {
+
+    fun searchNearby(location: LatLngLiteral): Flow<NetworkState<NearbySearchResponse>> {
         return flow {
             val response = nearbySearchService.nearbySearch(location)
             if (response.isSuccessful) {

@@ -6,8 +6,10 @@ object Libraries {
         const val MOSHI = "1.12.0"
         const val RETROFIT = "2.9.0"
         const val OK_HTTP = "4.9.2"
+        const val COIL = "1.4.0"
 
         object AirBnB {
+            const val EPOXY = "4.6.3"
             const val MAVERICKS = "2.4.0"
         }
 
@@ -27,8 +29,12 @@ object Libraries {
     object Dependencies {
 
         const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
+        const val COIL = "io.coil-kt:coil:${Versions.COIL}"
 
         object AirBnB {
+            const val EPOXY = "com.airbnb.android:epoxy:${Versions.AirBnB.EPOXY}"
+            const val EPOXY_PROCESSOR = "com.airbnb.android:epoxy-processor:${Versions.AirBnB.EPOXY}"
+            const val EPOXY_DATABINDING = "com.airbnb.android:epoxy-databinding:${Versions.AirBnB.EPOXY}"
             const val MAVERICKS = "com.airbnb.android:mavericks:${Versions.AirBnB.MAVERICKS}"
             const val MAVERICKS_NAVIGATION = "com.airbnb.android:mavericks-navigation:${Versions.AirBnB.MAVERICKS}"
         }
