@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="place"
+            type="com.alltrails.lunch.data.models.Place" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardview_nearby_restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_medium">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_medium">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.20"
+                android:orientation="vertical" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_marginEnd="@dimen/margin_medium"
+                app:imageUrl="@{place.imageUrl}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline_thumbnail"
+                app:layout_constraintDimensionRatio="1:1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textview_nearby_restaurant_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{place.name}"
+                android:textAppearance="@style/TextAppearance.TypographyStyles.Body1"
+                android:textStyle="bold"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toEndOf="@id/guideline_thumbnail"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Restaurant Name"/>
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/ratingbar_nearby_restaurant"
+                style="@android:style/Widget.Material.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="@{place.rating}"
+                android:stepSize="1"
+                app:layout_constraintStart_toEndOf="@id/guideline_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/textview_nearby_restaurant_name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textview_restaurant_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_extrasmall"
+                android:text="@{@string/nearby_restaurant_total_ratings(place.userRatingsTotal)}"
+                android:textAppearance="@style/TextAppearance.TypographyStyles.Caption"
+                android:textColor="@color/silver_chalice"
+                app:layout_constraintStart_toEndOf="@id/ratingbar_nearby_restaurant"
+                app:layout_constraintTop_toTopOf="@id/ratingbar_nearby_restaurant"
+                app:layout_constraintBottom_toBottomOf="@id/ratingbar_nearby_restaurant"
+                tools:text="(126)"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

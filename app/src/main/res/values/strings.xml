@@ -5,4 +5,6 @@
     <string name="error_invalid_request">An invalid request was made</string>
     <string name="nearby_restaurant_search_hint">Search for a restaurant</string>
     <string name="at_lunch_label">at Lunch</string>
+    <string name="error_nearby_restaurant_search_generic">An error occurred while fetching nearby locations</string>
+    <string name="nearby_restaurant_total_ratings">(%s)</string>
 </resources>

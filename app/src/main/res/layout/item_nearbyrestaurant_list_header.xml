@@ -2,14 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/nearbyrestaurants_header_height"
-        android:padding="@dimen/padding_medium">
+        android:padding="@dimen/padding_medium"
+        android:background="@android:color/white">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_logo"

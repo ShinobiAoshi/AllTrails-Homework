@@ -1,15 +1,15 @@
 package com.alltrails.lunch.ui.nearbyrestaurants.list
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.airbnb.mvrx.MavericksView
-import com.airbnb.mvrx.fragmentViewModel
-import com.airbnb.mvrx.withState
+import com.airbnb.mvrx.*
 import com.alltrails.lunch.R
-import com.alltrails.lunch.data.models.LatLng
+import com.alltrails.lunch.data.models.LatLngLiteral
 import com.alltrails.lunch.data.models.NearbySearchResponse
+import com.alltrails.lunch.data.models.Place
 import com.alltrails.lunch.databinding.FragmentNearbyRestaurantListBinding
+import com.alltrails.lunch.itemNearbyRestaurant
 import com.alltrails.lunch.itemNearbyrestaurantListHeader
+import com.alltrails.lunch.loadingRow
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.utils.viewBinding
 import com.google.android.material.snackbar.Snackbar
@@ -18,29 +18,22 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
     private val binding: FragmentNearbyRestaurantListBinding by viewBinding()
     private val viewModel: NearbyRestaurantListViewModel by fragmentViewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.onAsync(NearbyRestaurantListState::response, uniqueOnly()) { nearbyPlacesResponse ->
-            handleNearbyPlacesResult(nearbyPlacesResponse)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
-        viewModel.searchNearby(LatLng(latitude = 30.445840, longitude = -97.688290))
+        viewModel.searchNearby(LatLngLiteral(lat = 30.445840, lng = -97.688290))
     }
 
     override fun invalidate() = withState(viewModel) { state ->
-        binding.epoxyrecyclerviewNearbyList.withModels {
-            itemNearbyrestaurantListHeader {
-                id("header")
-            }
+        when (val response = state.response) {
+            Uninitialized -> { showLoading() }
+            is Loading -> { showLoading() }
+            is Success -> handleSuccess(response())
+            is Fail -> handleError(response.error.message ?: "")
         }
     }
 
-    private fun handleNearbyPlacesResult(response: NetworkState<NearbySearchResponse>) {
+    private fun handleSuccess(response: NetworkState<NearbySearchResponse>?) {
         when (response) {
-            is NetworkState.Success -> { }
             is NetworkState.Error -> handleError(response.error)
             is NetworkState.HttpErrors.BadGateWay -> handleError(response.exception)
             is NetworkState.HttpErrors.InternalServerError -> handleError(response.exception)
@@ -48,12 +41,37 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
             is NetworkState.HttpErrors.ResourceForbidden -> handleError(response.exception)
             is NetworkState.HttpErrors.ResourceNotFound -> handleError(response.exception)
             is NetworkState.HttpErrors.ResourceRemoved -> handleError(response.exception)
-            NetworkState.InvalidData -> { }
+            NetworkState.InvalidData -> { /* Show empty state */ }
             is NetworkState.NetworkException -> handleError(response.error)
+            is NetworkState.Success -> {
+                updateList(response.data.results)
+            }
+            null -> { /* Show empty state */ }
+        }
+    }
+
+    private fun showLoading() {
+        binding.epoxyrecyclerviewNearbyList.withModels {
+            loadingRow { id("loading") }
+        }
+    }
+
+    private fun updateList(nearbyRestaurants: List<Place>) {
+        binding.epoxyrecyclerviewNearbyList.withModels {
+            itemNearbyrestaurantListHeader { id("header") }
+            nearbyRestaurants.forEach { restaurant ->
+                itemNearbyRestaurant {
+                    id(restaurant.id)
+                    place(restaurant)
+                }
+            }
         }
     }
 
     private fun handleError(exception: String) {
+        binding.epoxyrecyclerviewNearbyList.withModels {
+            itemNearbyrestaurantListHeader { id("header") }
+        }
         Snackbar.make(binding.root, exception, Snackbar.LENGTH_LONG).show()
     }
 }

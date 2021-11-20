@@ -56,6 +56,7 @@ dependencies {
     implementation(Libraries.Dependencies.OkHttp.LOGGING_INTERCEPTOR)
     implementation(Libraries.Dependencies.AirBnB.EPOXY)
     implementation(Libraries.Dependencies.AirBnB.EPOXY_DATABINDING)
+    implementation(Libraries.Dependencies.COIL)
     kapt(Libraries.Dependencies.AirBnB.EPOXY_PROCESSOR)
     kapt(Libraries.Dependencies.Google.HILT_COMPILER)
     kapt(Libraries.Dependencies.Moshi.MOSHI_CODEGEN)

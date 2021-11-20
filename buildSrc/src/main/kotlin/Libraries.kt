@@ -6,6 +6,7 @@ object Libraries {
         const val MOSHI = "1.12.0"
         const val RETROFIT = "2.9.0"
         const val OK_HTTP = "4.9.2"
+        const val COIL = "1.4.0"
 
         object AirBnB {
             const val EPOXY = "4.6.3"
@@ -28,6 +29,7 @@ object Libraries {
     object Dependencies {
 
         const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
+        const val COIL = "io.coil-kt:coil:${Versions.COIL}"
 
         object AirBnB {
             const val EPOXY = "com.airbnb.android:epoxy:${Versions.AirBnB.EPOXY}"
