@@ -8,6 +8,7 @@ object Libraries {
         const val OK_HTTP = "4.9.2"
 
         object AirBnB {
+            const val EPOXY = "4.6.3"
             const val MAVERICKS = "2.4.0"
         }
 
@@ -29,6 +30,8 @@ object Libraries {
         const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
 
         object AirBnB {
+            const val EPOXY = "com.airbnb.android:epoxy:${Versions.AirBnB.EPOXY}"
+            const val EPOXY_PROCESSOR = "com.airbnb.android:epoxy-processor:${Versions.AirBnB.EPOXY}"
             const val MAVERICKS = "com.airbnb.android:mavericks:${Versions.AirBnB.MAVERICKS}"
             const val MAVERICKS_NAVIGATION = "com.airbnb.android:mavericks-navigation:${Versions.AirBnB.MAVERICKS}"
         }
