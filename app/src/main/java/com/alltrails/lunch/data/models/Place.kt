@@ -19,7 +19,6 @@ data class Place(
         "?maxwidth=400" +
         "&photo_reference=${photos?.get(0)?.id}" +
         "&key=AIzaSyDQSd210wKX_7cz9MELkxhaEOUhFP0AkSk"
-
 }
 
 @JsonClass(generateAdapter = true)

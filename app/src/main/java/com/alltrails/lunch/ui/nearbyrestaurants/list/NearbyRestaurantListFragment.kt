@@ -8,7 +8,6 @@ import com.alltrails.lunch.data.models.NearbySearchResponse
 import com.alltrails.lunch.data.models.Place
 import com.alltrails.lunch.databinding.FragmentNearbyRestaurantListBinding
 import com.alltrails.lunch.itemNearbyRestaurant
-import com.alltrails.lunch.itemNearbyrestaurantListHeader
 import com.alltrails.lunch.loadingRow
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.utils.viewBinding
@@ -58,7 +57,6 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
 
     private fun updateList(nearbyRestaurants: List<Place>) {
         binding.epoxyrecyclerviewNearbyList.withModels {
-            itemNearbyrestaurantListHeader { id("header") }
             nearbyRestaurants.forEach { restaurant ->
                 itemNearbyRestaurant {
                     id(restaurant.id)
@@ -69,9 +67,6 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
     }
 
     private fun handleError(exception: String) {
-        binding.epoxyrecyclerviewNearbyList.withModels {
-            itemNearbyrestaurantListHeader { id("header") }
-        }
         Snackbar.make(binding.root, exception, Snackbar.LENGTH_LONG).show()
     }
 }

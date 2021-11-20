@@ -1,61 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nearbyrestaurants_header_height"
+    android:padding="@dimen/padding_medium"
+    android:background="@android:color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/nearbyrestaurants_header_height"
-        android:padding="@dimen/padding_medium"
-        android:background="@android:color/white">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.5"
+        android:orientation="vertical"/>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5"
-            android:orientation="vertical"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageview_alltrails_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_extrasmall"
+        android:paddingTop="@dimen/margin_small"
+        android:paddingBottom="7dp"
+        android:src="@drawable/alltrails_logo"
+        app:layout_constraintTop_toTopOf="@+id/textview_atlunch_label"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_atlunch_label"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_logo" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageview_alltrails_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_extrasmall"
-            android:paddingTop="@dimen/margin_small"
-            android:paddingBottom="7dp"
-            android:src="@drawable/alltrails_logo"
-            app:layout_constraintTop_toTopOf="@+id/textview_atlunch_label"
-            app:layout_constraintBottom_toBottomOf="@+id/textview_atlunch_label"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_logo" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textview_atlunch_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_extrasmall"
+        android:text="@string/at_lunch_label"
+        android:textAppearance="@style/TextAppearance.TypographyStyles.Headline5"
+        android:textColor="@color/silver"
+        android:layout_marginBottom="@dimen/margin_small"
+        app:layout_constraintBottom_toTopOf="@+id/textinputlayout_search"
+        app:layout_constraintStart_toEndOf="@id/guideline_logo" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textview_atlunch_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_extrasmall"
-            android:text="@string/at_lunch_label"
-            android:textAppearance="@style/TextAppearance.TypographyStyles.Headline5"
-            android:textColor="@color/silver"
-            android:layout_marginBottom="@dimen/margin_small"
-            app:layout_constraintBottom_toTopOf="@+id/textinputlayout_search"
-            app:layout_constraintStart_toEndOf="@id/guideline_logo" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textinputlayout_search"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/nearby_restaurant_search_hint"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinputlayout_search"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/nearby_restaurant_search_hint"
-            app:endIconMode="custom"
-            app:endIconDrawable="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

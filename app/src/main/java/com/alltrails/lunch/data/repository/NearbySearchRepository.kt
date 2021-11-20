@@ -19,12 +19,6 @@ class NearbySearchRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val nearbySearchService: NearbySearchService
 ) {
-//    fun searchNearby(location: LatLng): Flow<NearbySearchResponse> {
-//        return flow {
-//            val response = nearbySearchService.nearbySearch(location)
-//            emit(response)
-//        }.flowOn(Dispatchers.IO)
-//    }
 
     fun searchNearby(location: LatLngLiteral): Flow<NetworkState<NearbySearchResponse>> {
         return flow {

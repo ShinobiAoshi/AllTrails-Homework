@@ -14,7 +14,10 @@
         android:id="@+id/cardview_nearby_restaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_medium">
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,11 +50,15 @@
                 android:layout_height="wrap_content"
                 android:text="@{place.name}"
                 android:textAppearance="@style/TextAppearance.TypographyStyles.Body1"
-                android:textStyle="bold"
                 android:textColor="@color/gray"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline_thumbnail"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Restaurant Name"/>
+                tools:text="Restaurant Name" />
 
             <androidx.appcompat.widget.AppCompatRatingBar
                 android:id="@+id/ratingbar_nearby_restaurant"
@@ -64,7 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textview_nearby_restaurant_name" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/textview_restaurant_name"
+                android:id="@+id/textview_nearby_restaurant_total_ratings"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_extrasmall"
@@ -75,6 +82,17 @@
                 app:layout_constraintTop_toTopOf="@id/ratingbar_nearby_restaurant"
                 app:layout_constraintBottom_toBottomOf="@id/ratingbar_nearby_restaurant"
                 tools:text="(126)"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textview_nearby_restaurant_pricelevel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.TypographyStyles.Caption"
+                android:textColor="@color/silver_chalice"
+                app:priceLevel="@{place.priceLevel}"
+                app:layout_constraintStart_toEndOf="@id/guideline_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/ratingbar_nearby_restaurant"
+                tools:text="$$$"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

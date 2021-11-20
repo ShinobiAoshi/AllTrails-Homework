@@ -7,4 +7,10 @@
     <string name="at_lunch_label">at Lunch</string>
     <string name="error_nearby_restaurant_search_generic">An error occurred while fetching nearby locations</string>
     <string name="nearby_restaurant_total_ratings">(%s)</string>
+    <string name="price_level_free">Free</string>
+    <string name="price_level_inexpensive">$</string>
+    <string name="price_level_moderate">$$</string>
+    <string name="price_level_expensive">$$$</string>
+    <string name="price_level_very_expensive">$$$$</string>
+    <string name="price_level_unknown">N/A</string>
 </resources>
