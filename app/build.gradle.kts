@@ -52,6 +52,8 @@ dependencies {
     implementation(Libraries.Dependencies.Moshi.MOSHI)
     implementation(Libraries.Dependencies.Moshi.MOSHI_KOTLIN)
     implementation(Libraries.Dependencies.Moshi.MOSHI_CONVERTER)
+    implementation(Libraries.Dependencies.OkHttp.OK_HTTP)
+    implementation(Libraries.Dependencies.OkHttp.LOGGING_INTERCEPTOR)
     kapt(Libraries.Dependencies.Google.HILT_COMPILER)
     kapt(Libraries.Dependencies.Moshi.MOSHI_CODEGEN)
     implementation(Libraries.Dependencies.AndroidX.APP_COMPAT)
