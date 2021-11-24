@@ -24,6 +24,7 @@ object Libraries {
         object Google {
             const val HILT = "2.38.1"
             const val MATERIAL = "1.4.0"
+            const val LOCATION = "18.0.0"
         }
     }
 
@@ -54,6 +55,7 @@ object Libraries {
             const val HILT = "com.google.dagger:hilt-android:${Versions.Google.HILT}"
             const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.Google.HILT}"
             const val MATERIAL = "com.google.android.material:material:${Versions.Google.MATERIAL}"
+            const val LOCATION = "com.google.android.gms:play-services-location:${Versions.Google.LOCATION}"
         }
 
         object OkHttp {
