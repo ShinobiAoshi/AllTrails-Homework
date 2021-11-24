@@ -3,7 +3,6 @@ package com.alltrails.lunch.ui.nearbyrestaurants.list
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
-import com.alltrails.lunch.data.models.Place
 import com.alltrails.lunch.data.repository.NearbySearchRepository
 import com.alltrails.lunch.di.utils.AssistedViewModelFactory
 import com.alltrails.lunch.di.utils.hiltMavericksViewModelFactory
@@ -18,7 +17,6 @@ import com.alltrails.lunch.data.models.NearbySearchResponse
 import com.alltrails.lunch.network.models.NetworkState
 
 data class NearbyRestaurantListState(
-    val nearbyRestaurants: List<Place> = emptyList(),
     val response: Async<NetworkState<NearbySearchResponse>> = Uninitialized
 ) : MavericksState
 
@@ -35,8 +33,8 @@ class NearbyRestaurantListViewModel @AssistedInject constructor(
         override fun create(state: NearbyRestaurantListState): NearbyRestaurantListViewModel
     }
 
-    fun searchNearby(location: LatLngLiteral) = withState { state ->
+    fun searchNearby(location: LatLngLiteral, query: String? = null) = withState { state ->
         if (state.response is Loading) return@withState
-        nearbySearchRepository.searchNearby(location).execute() { copy(response = it) }
+        nearbySearchRepository.searchNearby(location, query).execute() { copy(response = it) }
     }
 }

@@ -20,9 +20,12 @@ class NearbySearchRepository @Inject constructor(
     private val nearbySearchService: NearbySearchService
 ) {
 
-    fun searchNearby(location: LatLngLiteral): Flow<NetworkState<NearbySearchResponse>> {
+    fun searchNearby(location: LatLngLiteral, query: String? = null): Flow<NetworkState<NearbySearchResponse>> {
         return flow {
-            val response = nearbySearchService.nearbySearch(location)
+            val response = if (query.isNullOrEmpty())
+                nearbySearchService.nearbySearch(location)
+            else
+                nearbySearchService.nearbySearchWithTerm(location, query)
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body == null) emit(NetworkState.InvalidData)

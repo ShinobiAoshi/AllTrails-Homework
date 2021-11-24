@@ -10,4 +10,7 @@ interface NearbySearchService {
 
     @GET("nearbysearch/json?language=en&type=restaurant&radius=5000")
     suspend fun nearbySearch(@Query("location") location: LatLngLiteral) : Response<NearbySearchResponse>
+
+    @GET("textsearch/json?language=en&type=restaurant&radius=5000")
+    suspend fun nearbySearchWithTerm(@Query("location") location: LatLngLiteral, @Query("query") query: String) : Response<NearbySearchResponse>
 }
