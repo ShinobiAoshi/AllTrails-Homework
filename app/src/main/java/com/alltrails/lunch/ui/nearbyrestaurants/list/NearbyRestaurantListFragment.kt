@@ -2,6 +2,7 @@ package com.alltrails.lunch.ui.nearbyrestaurants.list
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.alltrails.lunch.itemNearbyRestaurant
 import com.alltrails.lunch.loadingRow
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.noResultsRow
+import com.alltrails.lunch.utils.onSearch
 import com.alltrails.lunch.utils.viewBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
@@ -41,6 +43,7 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         getNearbyRestaurants()
     }
 
@@ -49,8 +52,14 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
         super.onStop()
     }
 
+    private fun initView() {
+        binding.header.edittextSearch.onSearch {
+            searchNearbyRestaurants(binding.header.edittextSearch.text.toString())
+        }
+    }
+
     @SuppressLint("MissingPermission")
-    private fun getNearbyRestaurants() {
+    private fun getCurrentLocation(afterSuccess: (location: Location) -> Unit) {
         lifecycleScope.launch {
             val permissionResult =
                 TedPermission.create()
@@ -62,12 +71,24 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
             if (permissionResult.isGranted) {
                 fusedLocationClient.getCurrentLocation(PRIORITY_BALANCED_POWER_ACCURACY, cancellationTokenSource.token).addOnSuccessListener { location ->
                     if (location != null) {
-                        viewModel.searchNearby(LatLngLiteral(lat = location.latitude, lng = location.longitude))
+                        afterSuccess.invoke(location)
                     } else {
                         showNoResults()
                     }
                 }
             }
+        }
+    }
+
+    private fun getNearbyRestaurants() {
+        getCurrentLocation { location ->
+            viewModel.searchNearby(LatLngLiteral(lat = location.latitude, lng = location.longitude))
+        }
+    }
+
+    private fun searchNearbyRestaurants(query: String) {
+        getCurrentLocation { location ->
+            viewModel.searchNearby(LatLngLiteral(lat = location.latitude, lng = location.longitude), query)
         }
     }
 
