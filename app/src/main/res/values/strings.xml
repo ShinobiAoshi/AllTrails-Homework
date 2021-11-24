@@ -13,4 +13,8 @@
     <string name="price_level_expensive">$$$</string>
     <string name="price_level_very_expensive">$$$$</string>
     <string name="price_level_unknown">N/A</string>
+    <string name="button_ok">OK</string>
+    <string name="location_permission_denied_title">Location Permission Denied</string>
+    <string name="location_permission_denied_body">We need access to your location in order to show nearby restaurants</string>
+    <string name="button_cancel">Cancel</string>
 </resources>

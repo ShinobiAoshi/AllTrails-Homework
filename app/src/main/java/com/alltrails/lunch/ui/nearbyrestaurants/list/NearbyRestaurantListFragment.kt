@@ -1,6 +1,10 @@
 package com.alltrails.lunch.ui.nearbyrestaurants.list
 
+import android.Manifest
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.mvrx.*
 import com.alltrails.lunch.R
 import com.alltrails.lunch.data.models.LatLngLiteral
@@ -12,19 +16,34 @@ import com.alltrails.lunch.loadingRow
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.utils.viewBinding
 import com.google.android.material.snackbar.Snackbar
+import com.gun0912.tedpermission.coroutine.TedPermission
+import kotlinx.coroutines.launch
 
 class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restaurant_list), MavericksView {
     private val binding: FragmentNearbyRestaurantListBinding by viewBinding()
     private val viewModel: NearbyRestaurantListViewModel by fragmentViewModel()
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.searchNearby(LatLngLiteral(lat = 30.445840, lng = -97.688290))
+    private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch {
+            val permissionResult =
+                TedPermission.create()
+                    .setPermissions(locationPermission)
+                    .setGotoSettingButton(true)
+                    .setDeniedTitle(R.string.location_permission_denied_title)
+                    .setDeniedMessage(R.string.location_permission_denied_body)
+                    .check()
+            if (permissionResult.isGranted) {
+                viewModel.searchNearby(LatLngLiteral(lat = 30.445840, lng = -97.688290))
+            }
+        }
     }
 
     override fun invalidate() = withState(viewModel) { state ->
         when (val response = state.response) {
-            Uninitialized -> { showLoading() }
+            Uninitialized -> {  }
             is Loading -> { showLoading() }
             is Success -> handleSuccess(response())
             is Fail -> handleError(response.error.message ?: "")

@@ -7,6 +7,7 @@ object Libraries {
         const val RETROFIT = "2.9.0"
         const val OK_HTTP = "4.9.2"
         const val COIL = "1.4.0"
+        const val TED_PERMISSIONS = "3.3.0"
 
         object AirBnB {
             const val EPOXY = "4.6.3"
@@ -30,6 +31,7 @@ object Libraries {
 
         const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
         const val COIL = "io.coil-kt:coil:${Versions.COIL}"
+        const val TED_PERMISSIONS_COROUTINE = "io.github.ParkSangGwon:tedpermission-coroutine:${Versions.TED_PERMISSIONS}"
 
         object AirBnB {
             const val EPOXY = "com.airbnb.android:epoxy:${Versions.AirBnB.EPOXY}"
