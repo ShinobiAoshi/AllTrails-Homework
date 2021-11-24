@@ -60,8 +60,7 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
                     .setDeniedMessage(R.string.location_permission_denied_body)
                     .check()
             if (permissionResult.isGranted) {
-                fusedLocationClient.getCurrentLocation(PRIORITY_BALANCED_POWER_ACCURACY, cancellationTokenSource.token)
-                fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                fusedLocationClient.getCurrentLocation(PRIORITY_BALANCED_POWER_ACCURACY, cancellationTokenSource.token).addOnSuccessListener { location ->
                     if (location != null) {
                         viewModel.searchNearby(LatLngLiteral(lat = location.latitude, lng = location.longitude))
                     } else {
