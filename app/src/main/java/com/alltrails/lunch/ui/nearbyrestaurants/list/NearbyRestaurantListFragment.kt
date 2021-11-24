@@ -1,6 +1,7 @@
 package com.alltrails.lunch.ui.nearbyrestaurants.list
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -16,6 +17,10 @@ import com.alltrails.lunch.loadingRow
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.noResultsRow
 import com.alltrails.lunch.utils.viewBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import com.gun0912.tedpermission.coroutine.TedPermission
 import kotlinx.coroutines.launch
@@ -25,9 +30,27 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
     private val viewModel: NearbyRestaurantListViewModel by fragmentViewModel()
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
+    private val cancellationTokenSource = CancellationTokenSource()
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getNearbyRestaurants()
+    }
+
+    override fun onStop() {
+        cancellationTokenSource.cancel()
+        super.onStop()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getNearbyRestaurants() {
         lifecycleScope.launch {
             val permissionResult =
                 TedPermission.create()
@@ -37,7 +60,14 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
                     .setDeniedMessage(R.string.location_permission_denied_body)
                     .check()
             if (permissionResult.isGranted) {
-                viewModel.searchNearby(LatLngLiteral(lat = 30.445840, lng = -97.688290))
+                fusedLocationClient.getCurrentLocation(PRIORITY_BALANCED_POWER_ACCURACY, cancellationTokenSource.token)
+                fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                    if (location != null) {
+                        viewModel.searchNearby(LatLngLiteral(lat = location.latitude, lng = location.longitude))
+                    } else {
+                        showNoResults()
+                    }
+                }
             }
         }
     }
