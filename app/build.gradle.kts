@@ -57,6 +57,7 @@ dependencies {
     implementation(Libraries.Dependencies.AirBnB.EPOXY)
     implementation(Libraries.Dependencies.AirBnB.EPOXY_DATABINDING)
     implementation(Libraries.Dependencies.TED_PERMISSIONS_COROUTINE)
+    implementation(Libraries.Dependencies.Google.LOCATION)
     implementation(Libraries.Dependencies.COIL)
     kapt(Libraries.Dependencies.AirBnB.EPOXY_PROCESSOR)
     kapt(Libraries.Dependencies.Google.HILT_COMPILER)
