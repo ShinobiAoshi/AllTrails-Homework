@@ -14,6 +14,7 @@ import com.alltrails.lunch.databinding.FragmentNearbyRestaurantListBinding
 import com.alltrails.lunch.itemNearbyRestaurant
 import com.alltrails.lunch.loadingRow
 import com.alltrails.lunch.network.models.NetworkState
+import com.alltrails.lunch.noResultsRow
 import com.alltrails.lunch.utils.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.gun0912.tedpermission.coroutine.TedPermission
@@ -43,7 +44,7 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
 
     override fun invalidate() = withState(viewModel) { state ->
         when (val response = state.response) {
-            Uninitialized -> {  }
+            Uninitialized -> { }
             is Loading -> { showLoading() }
             is Success -> handleSuccess(response())
             is Fail -> handleError(response.error.message ?: "")
@@ -59,18 +60,27 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
             is NetworkState.HttpErrors.ResourceForbidden -> handleError(response.exception)
             is NetworkState.HttpErrors.ResourceNotFound -> handleError(response.exception)
             is NetworkState.HttpErrors.ResourceRemoved -> handleError(response.exception)
-            NetworkState.InvalidData -> { /* Show empty state */ }
+            NetworkState.InvalidData -> { showNoResults() }
             is NetworkState.NetworkException -> handleError(response.error)
             is NetworkState.Success -> {
-                updateList(response.data.results)
+                if (response.data.results.isNullOrEmpty())
+                    showNoResults()
+                else
+                    updateList(response.data.results)
             }
-            null -> { /* Show empty state */ }
+            null -> { showNoResults() }
         }
     }
 
     private fun showLoading() {
         binding.epoxyrecyclerviewNearbyList.withModels {
             loadingRow { id("loading") }
+        }
+    }
+
+    private fun showNoResults() {
+        binding.epoxyrecyclerviewNearbyList.withModels {
+            noResultsRow { id("noResults") }
         }
     }
 

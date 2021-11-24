@@ -9,4 +9,5 @@
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
     <dimen name="nearbyrestaurants_header_height">135dp</dimen>
+    <dimen name="no_results_icon_size">96dp</dimen>
 </resources>
