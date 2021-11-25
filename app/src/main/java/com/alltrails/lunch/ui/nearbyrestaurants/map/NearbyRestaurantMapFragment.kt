@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
@@ -106,7 +107,8 @@ class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_n
         map.setInfoWindowAdapter(NearbyRestaurantInfoWindowAdapter(requireActivity()))
         val bounds = LatLngBounds.builder()
         restaurants.forEach { restaurant ->
-            initMarker(map, restaurant, state)
+            val marker = initMarker(map, restaurant, state)
+            if (marker != null) bounds.include(marker.position)
         }
         map.setOnMarkerClickListener { marker ->
             viewModel.setSelectedRestaurant(marker.tag as Place)
@@ -117,7 +119,7 @@ class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_n
         }
     }
 
-    private fun initMarker(map: GoogleMap, restaurant: Place, state: NearbyRestaurantState) {
+    private fun initMarker(map: GoogleMap, restaurant: Place, state: NearbyRestaurantState): Marker? {
         val activeIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_active)
         val inactiveIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_inactive)
         val latLng = restaurant.geometry?.location?.toLatLng()
@@ -129,15 +131,16 @@ class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_n
             with(marker) {
                 tag = restaurant
                 if (state.selectedRestaurant == restaurant) {
-                    map.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLng(position))
+                    map.moveCamera(CameraUpdateFactory.newLatLng(position))
                     setIcon(activeIcon)
                     showInfoWindow()
                 } else {
                     setIcon(inactiveIcon)
                 }
             }
-            bounds.include(latLng)
+            return marker
         }
+        return null
     }
 
     private fun handleError(exception: String) {
