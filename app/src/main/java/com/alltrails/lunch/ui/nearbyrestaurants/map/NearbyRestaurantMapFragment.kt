@@ -14,15 +14,19 @@ import com.alltrails.lunch.data.models.Place
 import com.alltrails.lunch.databinding.FragmentNearbyRestaurantMapBinding
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.ui.nearbyrestaurants.NearbyRestaurantFragment
+import com.alltrails.lunch.ui.nearbyrestaurants.list.NearbyRestaurantState
 import com.alltrails.lunch.utils.onSearch
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import kotlinx.coroutines.launch
 
-class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_nearby_restaurant_map), MavericksView {
+class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_nearby_restaurant_map) {
     private lateinit var binding: FragmentNearbyRestaurantMapBinding
 
     override fun invalidate() = withState(viewModel) { state ->
@@ -90,24 +94,53 @@ class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_n
     private fun updateMap(restaurants: List<Place>) {
         binding.loading.root.visibility = View.GONE
         binding.groupMap.visibility = View.VISIBLE
-        lifecycleScope.launch {
-            val map = binding.mapviewNearbyRestaurants.awaitMap()
-            map.clear()
-            map.setInfoWindowAdapter(NearbyRestaurantInfoWindowAdapter(requireActivity()))
-            val bounds = LatLngBounds.builder()
-            restaurants.forEach { restaurant ->
-                val latLng = restaurant.geometry?.location?.toLatLng()
-                if (latLng != null) {
-                    val marker = map.addMarker {
-                        title(restaurant.name)
-                        position(latLng)
-                    }
-                    marker.tag = restaurant
-                    bounds.include(latLng)
-                }
+        withState(viewModel) { state ->
+            lifecycleScope.launch {
+                val map = binding.mapviewNearbyRestaurants.awaitMap()
+                drawMap(map, restaurants, state)
             }
+        }
+    }
+
+    private fun drawMap(map: GoogleMap, restaurants: List<Place>, state: NearbyRestaurantState) {
+        map.clear()
+        map.setInfoWindowAdapter(NearbyRestaurantInfoWindowAdapter(requireActivity()))
+        val bounds = LatLngBounds.builder()
+        restaurants.forEach { restaurant ->
+            val marker = initMarker(map, restaurant, state)
+            if (marker != null) bounds.include(marker.position)
+        }
+        map.setOnMarkerClickListener { marker ->
+            viewModel.setSelectedRestaurant(marker.tag as Place)
+            true
+        }
+        if (state.selectedRestaurant == null) {
             map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 20))
         }
+    }
+
+    private fun initMarker(map: GoogleMap, restaurant: Place, state: NearbyRestaurantState): Marker? {
+        val activeIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_active)
+        val inactiveIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_inactive)
+        val latLng = restaurant.geometry?.location?.toLatLng()
+        if (latLng != null) {
+            val marker = map.addMarker {
+                title(restaurant.name)
+                position(latLng)
+            }
+            with(marker) {
+                tag = restaurant
+                if (state.selectedRestaurant == restaurant) {
+                    map.moveCamera(CameraUpdateFactory.newLatLng(position))
+                    setIcon(activeIcon)
+                    showInfoWindow()
+                } else {
+                    setIcon(inactiveIcon)
+                }
+            }
+            return marker
+        }
+        return null
     }
 
     private fun handleError(exception: String) {
