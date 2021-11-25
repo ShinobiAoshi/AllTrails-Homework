@@ -19,8 +19,14 @@ import com.alltrails.lunch.network.models.NetworkState
 
 data class NearbyRestaurantState(
     val response: Async<NetworkState<NearbySearchResponse>> = Uninitialized,
-    val selectedRestaurant: Place? = null
+    val selectedRestaurant: Place? = null,
+    val view: View = View.LIST
 ) : MavericksState
+
+enum class View {
+    LIST,
+    MAP
+}
 
 class NearbyRestaurantViewModel @AssistedInject constructor(
     @Assisted initialState: NearbyRestaurantState,
@@ -40,5 +46,7 @@ class NearbyRestaurantViewModel @AssistedInject constructor(
         nearbySearchRepository.searchNearby(location, query).execute() { copy(response = it, selectedRestaurant = null) }
     }
 
-    fun setSelectedRestaurant(restaurant: Place) = setState { copy(selectedRestaurant = restaurant) }
+    fun setSelectedRestaurant(restaurant: Place?) = setState { copy(selectedRestaurant = restaurant) }
+
+    fun setView(view: View) = setState { copy(view = view) }
 }

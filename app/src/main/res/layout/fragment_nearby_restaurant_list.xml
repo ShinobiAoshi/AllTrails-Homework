@@ -11,8 +11,7 @@
         layout="@layout/item_nearbyrestaurant_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/epoxyrecyclerview_nearby_list" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/epoxyrecyclerview_nearby_list"
@@ -21,6 +20,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="mapview_nearby_restaurants,fab_list" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="epoxyrecyclerview_nearby_list,fab_map" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapview_nearby_restaurants"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:text="@string/list_button_label"
+        app:icon="@drawable/ic_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
