@@ -26,7 +26,7 @@ import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import kotlinx.coroutines.launch
 
-class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_nearby_restaurant_map), MavericksView {
+class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_nearby_restaurant_map) {
     private lateinit var binding: FragmentNearbyRestaurantMapBinding
 
     override fun invalidate() = withState(viewModel) { state ->
