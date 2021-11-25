@@ -1,5 +1,6 @@
 package com.alltrails.lunch.data.models
 
+import com.google.android.gms.maps.model.LatLng
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -41,6 +42,9 @@ data class LatLngLiteral(
     @field:Json(name = "lng") val lng: Double?
 ) {
     override fun toString(): String = String.format("%.1f,%.1f", lat, lng)
+    fun toLatLng(): LatLng? =
+        if (lat != null && lng != null) LatLng(lat, lng)
+        else null
 }
 
 @JsonClass(generateAdapter = true)

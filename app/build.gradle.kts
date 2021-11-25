@@ -1,9 +1,14 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id(Plugins.Ids.ANDROID_APPLICATION)
     kotlin(Plugins.Ids.KOTLIN_ANDROID)
     kotlin(Plugins.Ids.KOTLIN_KAPT)
     id(Plugins.Ids.HILT)
+    id(Plugins.Ids.GOOGLE_MAPS_SECRETS_GRADLE)
 }
+
+val MAPS_API_KEY: String = gradleLocalProperties(rootDir).getProperty("MAPS_API_KEY")
 
 android {
     compileSdk = App.COMPILE_SDK
@@ -43,6 +48,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        forEach { buildType ->
+            buildType.buildConfigField(type = "String", name = "MAPS_API_KEY", value = MAPS_API_KEY)
+        }
     }
 }
 
@@ -58,6 +66,8 @@ dependencies {
     implementation(Libraries.Dependencies.AirBnB.EPOXY_DATABINDING)
     implementation(Libraries.Dependencies.TED_PERMISSIONS_COROUTINE)
     implementation(Libraries.Dependencies.Google.LOCATION)
+    implementation(Libraries.Dependencies.Google.MAPS)
+    implementation(Libraries.Dependencies.Google.MAPS_KTX)
     implementation(Libraries.Dependencies.COIL)
     kapt(Libraries.Dependencies.AirBnB.EPOXY_PROCESSOR)
     kapt(Libraries.Dependencies.Google.HILT_COMPILER)
@@ -68,6 +78,7 @@ dependencies {
     implementation(Libraries.Dependencies.AndroidX.CONSTRAINT_LAYOUT)
     implementation(Libraries.Dependencies.AndroidX.NAVIGATION_FRAGMENT)
     implementation(Libraries.Dependencies.AndroidX.NAVIGATION_UI)
+    implementation(Libraries.Dependencies.AndroidX.LIFECYCLE_RUNTIME_KTX)
     implementation(Libraries.Dependencies.AirBnB.MAVERICKS)
     implementation(Libraries.Dependencies.AirBnB.MAVERICKS_NAVIGATION)
     testImplementation(Testing.Dependencies.JUNIT)
