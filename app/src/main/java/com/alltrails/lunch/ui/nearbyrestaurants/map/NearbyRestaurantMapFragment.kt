@@ -91,20 +91,22 @@ class NearbyRestaurantMapFragment : NearbyRestaurantFragment(R.layout.fragment_n
         binding.loading.root.visibility = View.GONE
         binding.groupMap.visibility = View.VISIBLE
         lifecycleScope.launch {
-            val googleMap = binding.mapviewNearbyRestaurants.awaitMap()
-            googleMap.clear()
+            val map = binding.mapviewNearbyRestaurants.awaitMap()
+            map.clear()
+            map.setInfoWindowAdapter(NearbyRestaurantInfoWindowAdapter(requireActivity()))
             val bounds = LatLngBounds.builder()
             restaurants.forEach { restaurant ->
                 val latLng = restaurant.geometry?.location?.toLatLng()
                 if (latLng != null) {
-                    googleMap.addMarker {
+                    val marker = map.addMarker {
                         title(restaurant.name)
                         position(latLng)
                     }
+                    marker.tag = restaurant
                     bounds.include(latLng)
                 }
             }
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 20))
+            map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 20))
         }
     }
 
