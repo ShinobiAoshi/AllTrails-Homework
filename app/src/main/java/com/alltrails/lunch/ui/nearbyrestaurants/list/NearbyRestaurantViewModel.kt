@@ -16,21 +16,21 @@ import com.alltrails.lunch.data.models.LatLngLiteral
 import com.alltrails.lunch.data.models.NearbySearchResponse
 import com.alltrails.lunch.network.models.NetworkState
 
-data class NearbyRestaurantListState(
+data class NearbyRestaurantState(
     val response: Async<NetworkState<NearbySearchResponse>> = Uninitialized
 ) : MavericksState
 
-class NearbyRestaurantListViewModel @AssistedInject constructor(
-    @Assisted initialState: NearbyRestaurantListState,
+class NearbyRestaurantViewModel @AssistedInject constructor(
+    @Assisted initialState: NearbyRestaurantState,
     private val nearbySearchRepository: NearbySearchRepository
-) : MavericksViewModel<NearbyRestaurantListState>(initialState) {
+) : MavericksViewModel<NearbyRestaurantState>(initialState) {
 
-    companion object : MavericksViewModelFactory<NearbyRestaurantListViewModel, NearbyRestaurantListState> by hiltMavericksViewModelFactory()
+    companion object : MavericksViewModelFactory<NearbyRestaurantViewModel, NearbyRestaurantState> by hiltMavericksViewModelFactory()
 
     @AssistedFactory
     interface Factory :
-        AssistedViewModelFactory<NearbyRestaurantListViewModel, NearbyRestaurantListState> {
-        override fun create(state: NearbyRestaurantListState): NearbyRestaurantListViewModel
+        AssistedViewModelFactory<NearbyRestaurantViewModel, NearbyRestaurantState> {
+        override fun create(state: NearbyRestaurantState): NearbyRestaurantViewModel
     }
 
     fun searchNearby(location: LatLngLiteral, query: String? = null) = withState { state ->

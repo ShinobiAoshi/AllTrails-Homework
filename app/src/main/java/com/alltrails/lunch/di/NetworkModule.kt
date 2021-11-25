@@ -1,5 +1,6 @@
 package com.alltrails.lunch.di
 
+import com.alltrails.lunch.BuildConfig
 import com.alltrails.lunch.network.service.AuthInterceptor
 import com.alltrails.lunch.network.service.NearbySearchService
 import com.squareup.moshi.Moshi
@@ -32,8 +33,7 @@ object NetworkModule {
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-             // TODO: Extract API key to separate file for security
-            .addInterceptor(AuthInterceptor("AIzaSyDQSd210wKX_7cz9MELkxhaEOUhFP0AkSk"))
+            .addInterceptor(AuthInterceptor(BuildConfig.MAPS_API_KEY))
             .build()
     }
 

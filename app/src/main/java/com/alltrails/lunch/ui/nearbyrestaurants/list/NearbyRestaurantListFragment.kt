@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.*
+import com.airbnb.mvrx.navigation.navGraphViewModel
 import com.alltrails.lunch.R
 import com.alltrails.lunch.data.models.LatLngLiteral
 import com.alltrails.lunch.data.models.NearbySearchResponse
@@ -29,17 +31,12 @@ import kotlinx.coroutines.launch
 
 class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restaurant_list), MavericksView {
     private val binding: FragmentNearbyRestaurantListBinding by viewBinding()
-    private val viewModel: NearbyRestaurantListViewModel by fragmentViewModel()
+    private val viewModel: NearbyRestaurantViewModel by navGraphViewModel(R.id.navigation_alltrails_lunch)
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
     private val cancellationTokenSource = CancellationTokenSource()
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,8 +50,14 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
     }
 
     private fun initView() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
         binding.header.edittextSearch.onSearch {
             searchNearbyRestaurants(binding.header.edittextSearch.text.toString())
+        }
+
+        binding.fabMap.setOnClickListener {
+            findNavController().navigate(R.id.fragment_nearby_restaurant_map_destination)
         }
     }
 

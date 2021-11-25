@@ -19,12 +19,15 @@ object Libraries {
             const val CONSTRAINT_LAYOUT = "2.1.1"
             const val CORE = "1.6.0"
             const val NAVIGATION = "2.3.5"
+            const val LIFECYCLE_RUNTIME_KTX = "2.3.1"
         }
 
         object Google {
             const val HILT = "2.38.1"
             const val MATERIAL = "1.4.0"
             const val LOCATION = "18.0.0"
+            const val MAPS = "18.0.0"
+            const val MAPS_KTX = "3.0.0"
         }
     }
 
@@ -49,6 +52,7 @@ object Libraries {
             const val CORE = "androidx.core:core-ktx:${Versions.AndroidX.CORE}"
             const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${Versions.AndroidX.NAVIGATION}"
             const val NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:${Versions.AndroidX.NAVIGATION}"
+            const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.LIFECYCLE_RUNTIME_KTX}"
         }
 
         object Google {
@@ -56,6 +60,8 @@ object Libraries {
             const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.Google.HILT}"
             const val MATERIAL = "com.google.android.material:material:${Versions.Google.MATERIAL}"
             const val LOCATION = "com.google.android.gms:play-services-location:${Versions.Google.LOCATION}"
+            const val MAPS = "com.google.android.gms:play-services-maps:${Versions.Google.MAPS}"
+            const val MAPS_KTX = "com.google.maps.android:maps-ktx:${Versions.Google.MAPS_KTX}"
         }
 
         object OkHttp {
