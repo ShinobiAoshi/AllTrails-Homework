@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_large"
         android:text="@string/map_button_label"
-        app:icon="@drawable/ic_map_pin"
+        app:icon="@drawable/ic_map_marker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

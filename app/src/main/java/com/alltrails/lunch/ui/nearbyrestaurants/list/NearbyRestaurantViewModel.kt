@@ -14,10 +14,12 @@ import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.Uninitialized
 import com.alltrails.lunch.data.models.LatLngLiteral
 import com.alltrails.lunch.data.models.NearbySearchResponse
+import com.alltrails.lunch.data.models.Place
 import com.alltrails.lunch.network.models.NetworkState
 
 data class NearbyRestaurantState(
-    val response: Async<NetworkState<NearbySearchResponse>> = Uninitialized
+    val response: Async<NetworkState<NearbySearchResponse>> = Uninitialized,
+    val selectedRestaurant: Place? = null
 ) : MavericksState
 
 class NearbyRestaurantViewModel @AssistedInject constructor(
@@ -35,6 +37,8 @@ class NearbyRestaurantViewModel @AssistedInject constructor(
 
     fun searchNearby(location: LatLngLiteral, query: String? = null) = withState { state ->
         if (state.response is Loading) return@withState
-        nearbySearchRepository.searchNearby(location, query).execute() { copy(response = it) }
+        nearbySearchRepository.searchNearby(location, query).execute() { copy(response = it, selectedRestaurant = null) }
     }
+
+    fun setSelectedRestaurant(restaurant: Place) = setState { copy(selectedRestaurant = restaurant) }
 }
