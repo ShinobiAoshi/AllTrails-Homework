@@ -14,12 +14,10 @@ import com.alltrails.lunch.R
 import com.alltrails.lunch.data.models.LatLngLiteral
 import com.alltrails.lunch.data.models.NearbySearchResponse
 import com.alltrails.lunch.data.models.Place
-import com.alltrails.lunch.databinding.FragmentNearbyRestaurantListBinding
+import com.alltrails.lunch.databinding.FragmentNearbyRestaurantBinding
 import com.alltrails.lunch.itemNearbyRestaurant
-import com.alltrails.lunch.loadingRow
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.noResultsRow
-import com.alltrails.lunch.utils.onSearch
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -31,14 +29,15 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.ktx.addMarker
-import com.google.maps.android.ktx.awaitMap
 import com.gun0912.tedpermission.coroutine.TedPermission
 import kotlinx.coroutines.launch
 import com.alltrails.lunch.ui.nearbyrestaurants.View.*
+import com.alltrails.lunch.utils.onSearch
+import com.google.maps.android.ktx.awaitMap
 
-class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restaurant_list), MavericksView {
+class NearbyRestaurantFragment : Fragment(R.layout.fragment_nearby_restaurant), MavericksView {
     private val viewModel: NearbyRestaurantViewModel by fragmentViewModel()
-    private lateinit var binding: FragmentNearbyRestaurantListBinding
+    private lateinit var binding: FragmentNearbyRestaurantBinding
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
     private val cancellationTokenSource = CancellationTokenSource()
@@ -47,7 +46,7 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentNearbyRestaurantListBinding.inflate(inflater, container, false)
+        binding = FragmentNearbyRestaurantBinding.inflate(inflater, container, false)
         binding.mapviewNearbyRestaurants.onCreate(savedInstanceState)
 
         initView()
@@ -130,8 +129,35 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
         when (val response = state.response) {
             Uninitialized -> { }
             is Loading -> { showLoading() }
-            is Success -> handleSuccess(response())
-            is Fail -> handleError(response.error.message ?: "")
+            is Success -> {
+                hideLoading(state.view)
+                handleSuccess(response())
+            }
+            is Fail -> {
+                hideLoading(state.view)
+                binding.loading.indicatorLoading.visibility = View.GONE
+                handleError(response.error.message ?: "")
+            }
+        }
+    }
+
+    private fun showLoading() {
+        binding.loading.indicatorLoading.visibility = View.VISIBLE
+        binding.groupList.visibility = View.GONE
+        binding.groupMap.visibility = View.GONE
+    }
+
+    private fun hideLoading(view: com.alltrails.lunch.ui.nearbyrestaurants.View) {
+        binding.loading.indicatorLoading.visibility = View.GONE
+        when (view) {
+            LIST -> {
+                binding.groupList.visibility = View.VISIBLE
+                binding.groupMap.visibility = View.GONE
+            }
+            MAP -> {
+                binding.groupList.visibility = View.GONE
+                binding.groupMap.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -169,12 +195,6 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
                 }
             }
             MAP -> { updateMap(response) }
-        }
-    }
-
-    private fun showLoading() {
-        binding.epoxyrecyclerviewNearbyList.withModels {
-            loadingRow { id("loading") }
         }
     }
 

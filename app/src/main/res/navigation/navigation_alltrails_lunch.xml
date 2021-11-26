@@ -6,7 +6,7 @@
     app:startDestination="@id/fragment_nearby_restaurant_list_destination">
     <fragment
         android:id="@+id/fragment_nearby_restaurant_list_destination"
-        android:name="com.alltrails.lunch.ui.nearbyrestaurants.list.NearbyRestaurantListFragment"
+        android:name="com.alltrails.lunch.ui.nearbyrestaurants.NearbyRestaurantFragment"
         android:label="@string/nearby_restaurant_list_title"
-        tools:layout="@layout/fragment_nearby_restaurant_list" />
+        tools:layout="@layout/fragment_nearby_restaurant" />
 </navigation>
