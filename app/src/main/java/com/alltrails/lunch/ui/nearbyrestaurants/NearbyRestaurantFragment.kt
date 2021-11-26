@@ -1,4 +1,4 @@
-package com.alltrails.lunch.ui.nearbyrestaurants.list
+package com.alltrails.lunch.ui.nearbyrestaurants
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -19,7 +19,6 @@ import com.alltrails.lunch.itemNearbyRestaurant
 import com.alltrails.lunch.loadingRow
 import com.alltrails.lunch.network.models.NetworkState
 import com.alltrails.lunch.noResultsRow
-import com.alltrails.lunch.ui.nearbyrestaurants.map.NearbyRestaurantInfoWindowAdapter
 import com.alltrails.lunch.utils.onSearch
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
@@ -35,7 +34,7 @@ import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.gun0912.tedpermission.coroutine.TedPermission
 import kotlinx.coroutines.launch
-import com.alltrails.lunch.ui.nearbyrestaurants.list.View.*
+import com.alltrails.lunch.ui.nearbyrestaurants.View.*
 
 class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restaurant_list), MavericksView {
     private val viewModel: NearbyRestaurantViewModel by fragmentViewModel()
@@ -160,7 +159,7 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
         }
     }
 
-    private fun showResults(view: com.alltrails.lunch.ui.nearbyrestaurants.list.View, response: List<Place>) {
+    private fun showResults(view: com.alltrails.lunch.ui.nearbyrestaurants.View, response: List<Place>) {
         when(view) {
             LIST -> {
                 if (response.isNullOrEmpty())
