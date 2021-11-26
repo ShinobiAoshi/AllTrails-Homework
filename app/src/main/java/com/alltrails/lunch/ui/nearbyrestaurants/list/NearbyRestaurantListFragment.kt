@@ -210,21 +210,22 @@ class NearbyRestaurantListFragment : Fragment(R.layout.fragment_nearby_restauran
     }
 
     private fun drawMap(map: GoogleMap, restaurants: List<Place>, state: NearbyRestaurantState) {
+        var boundsIncluded = false
         map.clear()
         map.setInfoWindowAdapter(NearbyRestaurantInfoWindowAdapter(requireActivity()))
         val bounds = LatLngBounds.builder()
         restaurants.forEach { restaurant ->
             val marker = initMarker(map, restaurant, state)
-            if (marker != null) bounds.include(marker.position)
+            if (marker != null) {
+                bounds.include(marker.position)
+                boundsIncluded = true
+            }
         }
         map.setOnMarkerClickListener { marker ->
             viewModel.setSelectedRestaurant(marker.tag as Place)
             true
         }
-        map.setOnMapClickListener {
-            viewModel.setSelectedRestaurant(null)
-        }
-        if (state.selectedRestaurant == null) {
+        if (state.selectedRestaurant == null && boundsIncluded) {
             map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 20))
         }
     }
