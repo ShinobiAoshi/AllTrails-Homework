@@ -1,4 +1,4 @@
-package com.alltrails.lunch.ui.nearbyrestaurants.list
+package com.alltrails.lunch.ui.nearbyrestaurants
 
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MavericksViewModel

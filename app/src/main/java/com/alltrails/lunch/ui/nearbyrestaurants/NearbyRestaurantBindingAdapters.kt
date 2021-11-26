@@ -1,4 +1,4 @@
-package com.alltrails.lunch.ui.nearbyrestaurants.list
+package com.alltrails.lunch.ui.nearbyrestaurants
 
 import android.widget.ImageView
 import android.widget.TextView

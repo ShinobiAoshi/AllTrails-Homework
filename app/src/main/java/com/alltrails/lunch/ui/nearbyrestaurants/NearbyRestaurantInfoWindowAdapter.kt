@@ -1,4 +1,4 @@
-package com.alltrails.lunch.ui.nearbyrestaurants.map
+package com.alltrails.lunch.ui.nearbyrestaurants
 
 import android.app.Activity
 import android.view.View

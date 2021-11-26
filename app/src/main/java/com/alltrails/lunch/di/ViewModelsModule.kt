@@ -3,7 +3,7 @@ package com.alltrails.lunch.di
 import com.alltrails.lunch.di.utils.AssistedViewModelFactory
 import com.alltrails.lunch.di.utils.MavericksViewModelComponent
 import com.alltrails.lunch.di.utils.ViewModelKey
-import com.alltrails.lunch.ui.nearbyrestaurants.list.NearbyRestaurantViewModel
+import com.alltrails.lunch.ui.nearbyrestaurants.NearbyRestaurantViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

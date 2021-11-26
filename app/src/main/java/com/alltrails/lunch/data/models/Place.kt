@@ -1,5 +1,6 @@
 package com.alltrails.lunch.data.models
 
+import com.alltrails.lunch.BuildConfig
 import com.google.android.gms.maps.model.LatLng
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -14,12 +15,11 @@ data class Place(
     @field:Json(name = "photos") val photos: List<PlacePhoto>?,
     @field:Json(name = "geometry") val geometry: Geometry?,
 ) {
-    // TODO: Replace API key
     val imageUrl: String =
         "https://maps.googleapis.com/maps/api/place/photo" +
         "?maxwidth=400" +
         "&photo_reference=${photos?.get(0)?.id}" +
-        "&key=AIzaSyDQSd210wKX_7cz9MELkxhaEOUhFP0AkSk"
+        "&key=${BuildConfig.MAPS_API_KEY}"
 }
 
 @JsonClass(generateAdapter = true)
