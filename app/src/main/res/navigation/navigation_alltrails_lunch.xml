@@ -9,9 +9,4 @@
         android:name="com.alltrails.lunch.ui.nearbyrestaurants.list.NearbyRestaurantListFragment"
         android:label="@string/nearby_restaurant_list_title"
         tools:layout="@layout/fragment_nearby_restaurant_list" />
-    <fragment
-        android:id="@+id/fragment_nearby_restaurant_map_destination"
-        android:name="com.alltrails.lunch.ui.nearbyrestaurants.map.NearbyRestaurantMapFragment"
-        android:label="@string/nearby_restaurant_map_title"
-        tools:layout="@layout/fragment_nearby_restaurant_map" />
 </navigation>
